@@ -1,0 +1,191 @@
+openapi: 3.0.0
+info:
+  title: System Logistyczny API
+  version: 1.0.0
+  description: |
+    # Dokumentacja Integracyjna Systemu Logistycznego
+    
+    Niniejszy dokument zawiera kompletne informacje niezbędne do integracji z systemem logistycznym.
+    
+    ## Autoryzacja
+    Dostęp do wszystkich punktów końcowych API wymaga podania klucza aplikacji w nagłówku HTTP.
+    
+    *   **Nagłówek:** `X-API-KEY`
+    *   **Klucz API:** `test-api-key`
+    
+    ## Podstawowe informacje
+    *   **Adres bazowy:** `http://localhost:10250`
+    *   **Format danych:** `application/json`
+    
+    ## Przykładowe użycie (curl)
+    ```bash
+    curl -X GET http://localhost:10250/api/drivers \
+      -H "X-API-KEY: test-api-key"
+    ```
+
+servers:
+  - url: http://localhost:10250
+    description: Serwer lokalny
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+
+  schemas:
+    Driver:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        number:
+          type: string
+          example: "D001"
+        lastName:
+          type: string
+          example: "Kowalski"
+    
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        number:
+          type: string
+          example: "C001"
+        email:
+          type: string
+          example: "klient@example.com"
+
+    Good:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        number:
+          type: string
+          example: "G001"
+        clientId:
+          type: integer
+          example: 1
+        driverId:
+          type: integer
+          example: 1
+
+    GoodWithDetails:
+      allOf:
+        - $ref: '#/components/schemas/Good'
+        - type: object
+          properties:
+            client:
+              $ref: '#/components/schemas/Client'
+            driver:
+              $ref: '#/components/schemas/Driver'
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+  /api/drivers:
+    get:
+      summary: Pobierz listę kierowców
+      description: Zwraca listę wszystkich kierowców zarejestrowanych w systemie.
+      responses:
+        '200':
+          description: Lista kierowców
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Driver'
+        '401':
+          description: Brak lub błędny klucz API
+
+  /api/clients:
+    get:
+      summary: Pobierz listę klientów
+      description: Zwraca listę wszystkich klientów zarejestrowanych w systemie.
+      responses:
+        '200':
+          description: Lista klientów
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+        '401':
+          description: Brak lub błędny klucz API
+
+  /api/clients/{id}/goods:
+    get:
+      summary: Pobierz listę towarów klienta
+      description: Zwraca listę towarów (id, numer) przypisanych do konkretnego klienta.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Lista towarów klienta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Good'
+        '404':
+          description: Nie znaleziono klienta
+
+  /api/drivers/{id}/goods:
+    get:
+      summary: Pobierz listę towarów kierowcy
+      description: Zwraca listę towarów (id, numer) przypisanych do konkretnego kierowcy.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Lista towarów kierowcy
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Good'
+        '404':
+          description: Nie znaleziono kierowcy
+
+  /api/goods/{id}:
+    get:
+      summary: Pobierz dane towaru po ID
+      description: Zwraca szczegółowe dane towaru wraz z pełnymi danymi klienta i kierowcy.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Szczegóły towaru
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoodWithDetails'
+        '404':
+          description: Nie znaleziono towaru
