@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Obsługi - Resolution Ledger</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/support.css">
+</head>
+
+<body>
+    <!-- Toast -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Pasek Boczny (Sidebar) -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <img src="assets/resolution_logo-clear.webp" alt="Resolution Ledger" class="logo">
+        </div>
+
+        <div class="user-card">
+            <div class="avatar">KA</div>
+            <div class="user-info">
+                <span class="label-sm">PANEL OBSŁUGI</span>
+                <span class="body-md font-bold text-wrap"
+                    style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="K. Administrator">K.
+                    Administrator</span>
+            </div>
+            <!-- Wyloguj obok uzytkownika jako jasnogranatowa ikona -->
+            <a href="#" class="btn-icon" title="Wyloguj się" style="margin-left: auto; color: var(--primary);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+            <!-- Sidebar-linki otrzymaly style grubszego tekstu w CSS -->
+            <a href="#" class="sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="9"></rect>
+                    <rect x="14" y="3" width="7" height="5"></rect>
+                    <rect x="14" y="12" width="7" height="9"></rect>
+                    <rect x="3" y="16" width="7" height="5"></rect>
+                </svg>
+                Dashboard
+            </a>
+            <a href="#" class="sidebar-link active" onclick="app.showListView()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Zgłoszenia
+            </a>
+            <a href="#" class="sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Użytkownicy
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <!-- Zmieniono na link ustawień na prośbę użytkownika -->
+            <a href="#" class="sidebar-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                </svg>
+                Ustawienia
+            </a>
+        </div>
+    </aside>
+
+    <!-- Główna Przestrzeń Robocza -->
+    <main class="main-content">
+
+        <!-- WIDOK: Tabela (Lista) -->
+        <section id="view-list" class="view-section active">
+            <div class="page-header">
+                <h1 class="headline-lg">Zgłoszenia</h1>
+            </div>
+
+            <!-- Toolbar wyrownany perfekcyjnie do lewego rogu (padding:0 i gap odpowiedni) -->
+            <div class="toolbar">
+                <div class="search-wrapper">
+                    <svg class="icon-search" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="search-input" class="input-field"
+                        placeholder="Szukaj po ID, zgłaszającym...">
+                </div>
+                <div class="filters">
+                    <div class="input-group-inline">
+                        <label class="label-sm">STATUS</label>
+                        <select id="filter-status" class="input-field select-field">
+                            <option value="all">Wszystkie</option>
+                            <option value="nowe">Nowe</option>
+                            <option value="w_trakcie">W trakcie</option>
+                            <option value="rozpatrzone">Rozpatrzone</option>
+                        </select>
+                    </div>
+                    <div class="input-group-inline">
+                        <label class="label-sm">TYP PROBLEMU</label>
+                        <select id="filter-type" class="input-field select-field">
+                            <option value="all">Wszystkie</option>
+                            <option value="uszkodzenie">Uszkodzenie</option>
+                            <option value="brak">Brak towaru</option>
+                            <option value="opóźnienie">Opóźnienie</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela -->
+            <div class="data-table">
+                <!-- Usunięto padding z wierszy/kolumn co czyni krawędź wyrównaną do osi X głównego H1 -->
+                <div class="table-header label-sm">
+                    <div class="col-id col-header" onclick="app.setSort('id')">ID ZGŁOSZENIA <svg id="sort-id"
+                            class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2"></svg></div>
+                    <div class="col-reporter col-header" onclick="app.setSort('reporter')">ZGŁASZAJĄCY <svg
+                            id="sort-reporter" class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2"></svg></div>
+                    <div class="col-product col-header" onclick="app.setSort('product')">TOWAR <svg id="sort-product"
+                            class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2"></svg></div>
+                    <div class="col-type col-header" onclick="app.setSort('type')">TYP PROBLEMU <svg id="sort-type"
+                            class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2"></svg></div>
+                    <div class="col-date col-header" onclick="app.setSort('date')">DATA <svg id="sort-date"
+                            class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2"></svg></div>
+                    <div class="col-status col-header" onclick="app.setSort('status')">STATUS <svg id="sort-status"
+                            class="sort-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2"></svg></div>
+                </div>
+
+                <div id="table-body" class="table-body">
+                    <!-- Dynamic Rows wJS - Usunięto z nich tło surface, pozycjonowanie na zero od lewej -->
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="table-empty-state" class="empty-state surface-container-lowest hidden">
+                <div class="empty-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        <path d="M11 8v2"></path>
+                        <path d="M11 14h.01"></path>
+                    </svg>
+                </div>
+                <h2 class="title-md">Nie znaleziono zgłoszeń spełniających kryteria</h2>
+                <p class="body-md text-muted" style="margin-top: 0.25rem">Twoje filtry lub zapytanie wyszukiwania nie
+                    zwróciły żadnych wyników w systemie.</p>
+                <button class="btn-secondary btn-sm" style="margin-top: 1.5rem" onclick="app.resetFilters()">Zresetuj
+                    filtry wyszukiwania</button>
+            </div>
+        </section>
+
+        <!-- WIDOK: Szczegóły Zgłoszenia -->
+        <section id="view-details" class="view-section">
+            <div class="details-header">
+                <button class="btn-secondary btn-icon-text btn-sm" onclick="app.showListView()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    Powrót
+                </button>
+                <div class="id-badge">
+                    <span class="label-sm text-muted" style="display:block; margin-bottom: 0.25rem">PROTOKÓŁ
+                        ZGŁOSZENIOWY</span>
+                    <h1 id="detail-id-header" class="headline-md">Zgłoszenie #LOG-00000</h1>
+                </div>
+                <div style="width: 130px;">
+                    <!-- Spacer for flex flex-between layout to center the ID -->
+                </div>
+            </div>
+
+            <div class="details-grid">
+                <!-- Lewa Kolumna: Metadane i formularz -->
+                <div class="details-column-main">
+
+                    <div class="detail-card surface-container-lowest">
+                        <div class="card-header">
+                            <div class="product-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path
+                                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                                    </path>
+                                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                </svg>
+                            </div>
+                            <div>
+                                <h2 id="detail-product-name" class="title-md">Product Name</h2>
+                                <p class="body-md text-muted">Zweryfikowany Rekord Towaru</p>
+                            </div>
+                        </div>
+                        <div class="meta-grid">
+                            <div class="meta-item">
+                                <span class="label-sm">ZGŁASZAJĄCY</span>
+                                <span id="detail-reporter" class="body-md font-bold">Name</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="label-sm">DATA ZGŁOSZENIA</span>
+                                <span id="detail-date" class="body-md font-bold">Date</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="label-sm">TYP PROBLEMU</span>
+                                <span id="detail-type" class="body-md font-bold">Type</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="detail-card surface-container-lowest">
+                        <h3 class="label-sm">OPIS PROBLEMU</h3>
+                        <p class="body-md">Po otwarciu kontenera zbiorczego stwierdzono poważne uszkodzenia zewnętrzne
+                            trzech opakowań. Odkształcenia wskazują na niewłaściwe zabezpieczenie ładunku podczas
+                            transportu. W załączeniu protokół szkody.</p>
+
+                        <div class="attachments-area">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            <span class="body-md">protokol_szkody_skan.pdf</span>
+                            <a href="#" class="btn-icon" style="margin-left:auto"><svg width="18" height="18"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                                </svg></a>
+                        </div>
+                    </div>
+
+
+                    <div class="detail-card surface-container-lowest interactive-card">
+                        <h3 class="title-md" style="margin-bottom:0.5rem">Panel Decyzyjny</h3>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label class="label-sm">WINA</label>
+                                <select class="input-field select-field">
+                                    <option>Nie wybrano</option>
+                                    <option>Przewoźnik</option>
+                                    <option>Magazyn</option>
+                                    <option>Producent</option>
+                                    <option>Klient</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label class="label-sm">STATUS ZGŁOSZENIA</label>
+                                <select id="select-status" class="input-field select-field"
+                                    onchange="app.handleStatusChange()">
+                                    <option value="nowe">Nowe</option>
+                                    <option value="w_trakcie">W trakcie</option>
+                                    <option value="rozpatrzone">Rozpatrzone</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="resolution-block" class="resolution-block hidden">
+                            <div class="input-group">
+                                <label class="label-sm">REZULTAT ZGŁOSZENIA <span class="required">*</span></label>
+                                <select id="select-result" class="input-field select-field">
+                                    <option value="" disabled selected>Wybierz rezultat...</option>
+                                    <option value="uznane">Uznane</option>
+                                    <option value="odrzucone">Odrzucone</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn-primary" onclick="app.saveChanges()">Zapisz Decyzję</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prawa Kolumna: Notatki -->
+                <div class="details-column-side">
+                    <h3 class="title-md">Historia zgłoszenia</h3>
+
+                    <div class="notes-wrapper" style="flex:1; display:flex; flex-direction:column;">
+
+                        <div id="notes-timeline" class="notes-timeline">
+                            <div class="note-item system-note">
+                                <div class="note-time label-sm">21 Mar, 14:20</div>
+                                <div class="note-content">Zgłoszenie zostało utworzone w systemie. Zgłaszający: Jan
+                                    Kowalski.</div>
+                            </div>
+                            <div class="note-item user-note">
+                                <div class="note-time label-sm">21 Mar, 15:30 • K. Administrator</div>
+                                <div class="note-content">Przekazano prośbę do działu logistyki o sprawdzenie zapisu z
+                                    monitoringu paczek. Status zmieniony na "W trakcie".</div>
+                            </div>
+                        </div>
+
+                        <div id="empty-notes-placeholder" class="empty-notes-placeholder hidden">
+                            <div class="empty-icon-small">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                            </div>
+                            <p class="body-md">Brak notatek w tym zgłoszeniu.</p>
+                        </div>
+
+                    </div>
+
+                    <div class="add-note-box">
+                        <label class="label-sm" style="display:block; margin-bottom:0.5rem">DODAJ NOTATKĘ</label>
+                        <textarea id="note-textarea" class="input-field"
+                            placeholder="Wpisz treść notatki wewnętrznej..."></textarea>
+                        <div class="form-actions" style="margin-top: 0.75rem;">
+                            <button class="btn-primary btn-sm" onclick="app.addNote()">Dodaj Notatkę</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/support.js"></script>
+</body>
+
+</html>
